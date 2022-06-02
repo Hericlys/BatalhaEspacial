@@ -35,6 +35,7 @@ class NavePlayer(pygame.sprite.Sprite):
     def update(self):
         self.animaçao()
         self.movimentação()
+        self.son_explosao.set_volume(config.volume_efeitos)
 
     def movimentação(self, direct_x=0, direct_y=0):
         if self.vida:
@@ -67,7 +68,7 @@ class Laser(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
         self.son_disparoLaser = pygame.mixer.Sound(os.path.join(SONS_DIR, "DisparoLase.WAV"))
-        self.son_disparoLaser.set_volume(config.volume_musica + 0.2)
+        self.son_disparoLaser.set_volume(config.volume_efeitos)
         self.son_disparoLaser.play()
         self.dano = 15
         self.pos_x = pos_x
@@ -87,7 +88,8 @@ class LaserDuplo(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
         self.son_disparoLaser = pygame.mixer.Sound(os.path.join(SONS_DIR, "DisparoLase.WAV"))
-        self.son_disparoLaser.set_volume(config.volume_musica + 0.2)
+        self.son_disparoLaser.set_volume(config.volume_efeitos)
+        self.son_disparoLaser.play()
         self.dano = 25
         self.pos_x = pos_x
         self.pos_y = pos_y - 32
@@ -106,7 +108,8 @@ class Especial(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
         self.son_disparoLaser = pygame.mixer.Sound(os.path.join(SONS_DIR, "DisparoLase.WAV"))
-        self.son_disparoLaser.set_volume(config.volume_musica + 0.2)
+        self.son_disparoLaser.set_volume(config.volume_efeitos)
+        self.son_disparoLaser.play()
         self.dano = 100
         self.pos_x = pos_x
         self.pos_y = pos_y - 32

@@ -21,6 +21,8 @@ class Configurações:
         pygame.display.set_caption(nome_do_jogo)
         self.relogio = pygame.time.Clock()
         self.volume_musica = 0.1
+        self.volume_efeitos = self.volume_musica + 0.2
+        self.mudo = False
 
 
     def reiniciar(self):
@@ -46,13 +48,22 @@ class Configurações:
                     nave_player.index_arma = 2
 
                 if event.key == K_m:
-                    config.volume_musica = 0.0
+                    if not config.mudo:
+                        config.volume_musica = 0
+                        config.volume_efeitos = 0
+                        config.mudo = True
+                    else:
+                        config.volume_musica = 0.1
+                        config.volume_efeitos = config.volume_musica + 0.2
+                        config.mudo = False
 
                 if event.key == K_UP:
-                    if config.volume_musica < 0.5:
+                    if config.volume_musica < 0.5 and not config.mudo:
                         config.volume_musica += 0.1
+                        config.volume_efeitos += 0.1
                 if event.key == K_DOWN:
-                    if config.volume_musica > 0:
+                    if config.volume_musica > 0 and not config:
+                        config.volume_efeitos -= 0.1
                         config.volume_musica -= 0.1
 
                 #botões para teste
