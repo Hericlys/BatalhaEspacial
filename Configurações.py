@@ -30,6 +30,16 @@ class Configurações:
                 if event.key == K_SPACE:
                     nave_player.disparar()
                     todas_as_sprites.add(nave_player.minhasBalas)
+
+                if event.key == K_1:
+                    nave_player.index_arma = 0
+
+                if event.key == K_2:
+                    nave_player.index_arma = 1
+
+                if event.key == K_3:
+                    nave_player.index_arma = 2
+
                 if event.key == K_0 and nave_player.vida == False:
                     config.reiniciar()
                 if event.key == K_9:

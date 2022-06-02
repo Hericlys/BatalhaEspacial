@@ -26,6 +26,7 @@ class NavePlayer(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (self.pos_x, self.pos_y)
         self.minhasArmas = [Laser, LaserDuplo, Especial]
+        self.index_arma = 0
         self.minhasBalas = []
 
         self.velocidade = 10
@@ -49,7 +50,7 @@ class NavePlayer(pygame.sprite.Sprite):
 
     def disparar(self):
         if self.vida:
-            Arma = self.minhasArmas[2]
+            Arma = self.minhasArmas[self.index_arma]
             minha_bala = Arma(self.pos_x, self.pos_y)
             self.minhasBalas.append(minha_bala)
 
@@ -63,6 +64,7 @@ class NavePlayer(pygame.sprite.Sprite):
 class Laser(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
+        self.dano = 15
         self.pos_x = pos_x
         self.pos_y = pos_y - 32
         self.velocidade = 10
@@ -79,9 +81,10 @@ class Laser(pygame.sprite.Sprite):
 class LaserDuplo(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
+        self.dano = 25
         self.pos_x = pos_x
         self.pos_y = pos_y - 32
-        self.velocidade = 20
+        self.velocidade = 15
         self.image = sprite_sheet_disparos.subsurface((1 * 32, 0), (32, 32))
         self.image = pygame.transform.scale(self.image, (32 * 3, 32 * 3))
         self.rect = self.image.get_rect()
@@ -95,9 +98,10 @@ class LaserDuplo(pygame.sprite.Sprite):
 class Especial(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
+        self.dano = 100
         self.pos_x = pos_x
         self.pos_y = pos_y - 32
-        self.velocidade = 10
+        self.velocidade = 15
         self.sprite_animacao = []
         self.index_lista = 0
         for i in range(2):
