@@ -1,5 +1,6 @@
 import pygame
-from Configurações import config, sprite_sheet_nave, sprite_sheet_explosao, sprite_sheet_disparos
+import os
+from Configurações import config, sprite_sheet_nave, sprite_sheet_explosao, sprite_sheet_disparos,SONS_DIR
 
 
 class NavePlayer(pygame.sprite.Sprite):
@@ -28,8 +29,8 @@ class NavePlayer(pygame.sprite.Sprite):
         self.minhasArmas = [Laser, LaserDuplo, Especial]
         self.index_arma = 0
         self.minhasBalas = []
-
         self.velocidade = 10
+        self.son_explosao = pygame.mixer.Sound(os.path.join(SONS_DIR, "explosao_nave.wav"))
 
     def update(self):
         self.animaçao()
@@ -57,6 +58,7 @@ class NavePlayer(pygame.sprite.Sprite):
     def morte(self):
         self.vida = False
         if self.index_lista_explosao < 5:
+            self.son_explosao.play()
             self.index_lista_explosao += 0.25
             self.image = self.imagens_nave_explosao[int(self.index_lista_explosao)]
 
@@ -64,6 +66,9 @@ class NavePlayer(pygame.sprite.Sprite):
 class Laser(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
+        self.son_disparoLaser = pygame.mixer.Sound(os.path.join(SONS_DIR, "DisparoLase.WAV"))
+        self.son_disparoLaser.set_volume(config.volume_musica + 0.2)
+        self.son_disparoLaser.play()
         self.dano = 15
         self.pos_x = pos_x
         self.pos_y = pos_y - 32
@@ -81,6 +86,8 @@ class Laser(pygame.sprite.Sprite):
 class LaserDuplo(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
+        self.son_disparoLaser = pygame.mixer.Sound(os.path.join(SONS_DIR, "DisparoLase.WAV"))
+        self.son_disparoLaser.set_volume(config.volume_musica + 0.2)
         self.dano = 25
         self.pos_x = pos_x
         self.pos_y = pos_y - 32
@@ -98,6 +105,8 @@ class LaserDuplo(pygame.sprite.Sprite):
 class Especial(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
+        self.son_disparoLaser = pygame.mixer.Sound(os.path.join(SONS_DIR, "DisparoLase.WAV"))
+        self.son_disparoLaser.set_volume(config.volume_musica + 0.2)
         self.dano = 100
         self.pos_x = pos_x
         self.pos_y = pos_y - 32

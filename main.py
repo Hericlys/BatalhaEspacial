@@ -5,6 +5,8 @@ pygame.display.set_caption('Nave Game')
 
 nave_player = NavePlayer()
 todas_as_sprites.add(nave_player)
+pygame.mixer.music.play(-1)
+
 
 if __name__ == "__main__":
     while True:
@@ -18,3 +20,4 @@ if __name__ == "__main__":
         todas_as_sprites.draw(config.tela)
         todas_as_sprites.update()
         pygame.display.flip()
+        pygame.mixer.music.set_volume(config.volume_musica)
