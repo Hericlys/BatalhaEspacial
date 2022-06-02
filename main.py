@@ -1,0 +1,20 @@
+from Configurações import *
+from Objetos import NavePlayer
+
+pygame.display.set_caption('Nave Game')
+
+nave_player = NavePlayer()
+todas_as_sprites.add(nave_player)
+
+if __name__ == "__main__":
+    while True:
+        config.relogio.tick(30)
+
+        config.controle(nave_player)
+        if nave_player.pontos_de_vida <= 0 or not nave_player.vida:
+            nave_player.morte()
+
+        config.tela.fill((0, 0, 0))
+        todas_as_sprites.draw(config.tela)
+        todas_as_sprites.update()
+        pygame.display.flip()
