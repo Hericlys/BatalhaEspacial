@@ -62,7 +62,7 @@ class Configurações:
                         config.volume_musica += 0.1
                         config.volume_efeitos += 0.1
                 if event.key == K_DOWN:
-                    if config.volume_musica > 0 and not config:
+                    if config.volume_musica > 0 and not config.mudo:
                         config.volume_efeitos -= 0.1
                         config.volume_musica -= 0.1
 
