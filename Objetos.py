@@ -101,7 +101,7 @@ class Especial(pygame.sprite.Sprite):
         self.sprite_animacao = []
         self.index_lista = 0
         for i in range(2):
-            img = sprite_sheet_disparos.subsurface(((i + 4) * 32, 0), (32, 32))
+            img = sprite_sheet_disparos.subsurface(((i + 5) * 32, 0), (32, 32))
             img = pygame.transform.scale(img, (32 * 3, 32 * 3))
             self.sprite_animacao.append(img)
         self.image = self.sprite_animacao[self.index_lista]
@@ -111,7 +111,7 @@ class Especial(pygame.sprite.Sprite):
     def update(self):
         if self.index_lista >= 1:
             self.index_lista = 0
-        self.index_lista += 0.025
+        self.index_lista += 0.7
         self.image = self.sprite_animacao[int(self.index_lista)]
         self.pos_y -= self.velocidade
         self.rect.center = (self.pos_x, self.pos_y)
