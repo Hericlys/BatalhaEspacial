@@ -138,11 +138,11 @@ class Especial(pygame.sprite.Sprite):
 class Alien1(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
-        self.velocidade = 2
+        self.velocidade = 4 #velocidades precisao ser acrecentados de 2 em 2
         self.pos_x = pos_x
         self.pos_y = pos_y
-        self.novapos_x = randrange(config.limite_esquedo_tela, config.limite_direito_tela, 2)
-        self.novapos_y = randrange(config.limite_superior_tela, config.metade_altura_tela, 2)
+        self.novapos_x = randrange(config.limite_esquedo_tela, config.limite_direito_tela)
+        self.novapos_y = randrange(config.limite_superior_tela, config.metade_altura_tela)
         self.index_lista = 0
         self.imagens_alien = []
         for i in range(2):
@@ -165,26 +165,21 @@ class Alien1(pygame.sprite.Sprite):
         self.image = self.imagens_alien[int(self.index_lista)]
 
     def movimentação_x(self):
-        print(f"{self.pos_x} | {self.novapos_x}")
         self.rect.center = (self.pos_x, self.pos_y)
-        if self.pos_x != self.novapos_x:
+        if self.pos_x != self.novapos_x and self.novapos_x % self.velocidade == 0:
             if self.pos_x > self.novapos_x:
-                print("movendo para esqueda")
                 self.pos_x -= self.velocidade
             else:
-                print("movendo para direita")
                 self.pos_x += self.velocidade
-            if self.pos_x == self.novapos_x:
-                self.novapos_x = randrange(config.limite_esquedo_tela, config.limite_direito_tela, 2)
+        if self.pos_x == self.novapos_x or self.novapos_x % self.velocidade != 0:
+            self.novapos_x = randrange(config.limite_esquedo_tela, config.limite_direito_tela)
 
     def movimentação_y(self):
         self.rect.center = (self.pos_x, self.pos_y)
-        if self.pos_y != self.novapos_y:
+        if self.pos_y != self.novapos_y and self.novapos_y % self.velocidade == 0:
             if self.pos_y > self.novapos_y:
-                print("movendo para cima")
                 self.pos_y -= self.velocidade
             else:
-                print("movendo para baixo")
                 self.pos_y += self.velocidade
-            if self.pos_y == self.novapos_y:
-                self.novapos_y = randrange(config.limite_superior_tela, config.metade_altura_tela, 2)
+        if self.pos_y == self.novapos_y or self.novapos_y % self.velocidade != 0:
+            self.novapos_y = randrange(config.limite_superior_tela, config.metade_altura_tela)
