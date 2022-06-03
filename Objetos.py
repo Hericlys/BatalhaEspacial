@@ -1,6 +1,8 @@
 import pygame
 import os
-from Configurações import config, sprite_sheet_nave, sprite_sheet_explosao, sprite_sheet_disparos,SONS_DIR
+from random import randrange
+from Configurações import config, sprite_sheet_nave, sprite_sheet_explosao, sprite_sheet_disparos,sprite_sheet_alien,\
+    SONS_DIR
 
 
 class NavePlayer(pygame.sprite.Sprite):
@@ -131,3 +133,58 @@ class Especial(pygame.sprite.Sprite):
         self.image = self.sprite_animacao[int(self.index_lista)]
         self.pos_y -= self.velocidade
         self.rect.center = (self.pos_x, self.pos_y)
+
+
+class Alien1(pygame.sprite.Sprite):
+    def __init__(self, pos_x, pos_y):
+        pygame.sprite.Sprite.__init__(self)
+        self.velocidade = 2
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.novapos_x = randrange(config.limite_esquedo_tela, config.limite_direito_tela, 2)
+        self.novapos_y = randrange(config.limite_superior_tela, config.metade_altura_tela, 2)
+        self.index_lista = 0
+        self.imagens_alien = []
+        for i in range(2):
+            image = sprite_sheet_alien.subsurface((i * 32, 0), (32, 32))
+            image = pygame.transform.scale(image, (32 * 1.5, 32 * 1.5))
+            self.imagens_alien.append(image)
+        self.image = self.imagens_alien[self.index_lista]
+        self.rect = self.image.get_rect()
+        self.rect.center = (self.pos_x, self.pos_y)
+
+    def update(self):
+        self.animação()
+        self.movimentação_x()
+        self.movimentação_y()
+
+    def animação(self):
+        if self.index_lista >= 1:
+            self.index_lista = 0
+        self.index_lista += 0.05
+        self.image = self.imagens_alien[int(self.index_lista)]
+
+    def movimentação_x(self):
+        print(f"{self.pos_x} | {self.novapos_x}")
+        self.rect.center = (self.pos_x, self.pos_y)
+        if self.pos_x != self.novapos_x:
+            if self.pos_x > self.novapos_x:
+                print("movendo para esqueda")
+                self.pos_x -= self.velocidade
+            else:
+                print("movendo para direita")
+                self.pos_x += self.velocidade
+            if self.pos_x == self.novapos_x:
+                self.novapos_x = randrange(config.limite_esquedo_tela, config.limite_direito_tela, 2)
+
+    def movimentação_y(self):
+        self.rect.center = (self.pos_x, self.pos_y)
+        if self.pos_y != self.novapos_y:
+            if self.pos_y > self.novapos_y:
+                print("movendo para cima")
+                self.pos_y -= self.velocidade
+            else:
+                print("movendo para baixo")
+                self.pos_y += self.velocidade
+            if self.pos_y == self.novapos_y:
+                self.novapos_y = randrange(config.limite_superior_tela, config.metade_altura_tela, 2)

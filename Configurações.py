@@ -24,7 +24,6 @@ class Configurações:
         self.volume_efeitos = self.volume_musica + 0.2
         self.mudo = False
 
-
     def reiniciar(self):
         print("funciona")
 
@@ -98,6 +97,7 @@ musica_fundo = pygame.mixer.music.load(os.path.join(SONS_DIR, "BoxCat Games - Ba
 sprite_sheet_nave = pygame.image.load(os.path.join(IMAGENS_DIR, "Nave_player.png"))
 sprite_sheet_explosao = pygame.image.load(os.path.join(IMAGENS_DIR, "Explosão.png"))
 sprite_sheet_disparos = pygame.image.load(os.path.join(IMAGENS_DIR, "Disparos.png"))
+sprite_sheet_alien = pygame.image.load(os.path.join(IMAGENS_DIR, "alien_inimigos _basicos.png"))
 
 todas_as_sprites = pygame.sprite.Group()
 

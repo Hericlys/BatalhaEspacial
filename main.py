@@ -1,10 +1,12 @@
 from Configurações import *
-from Objetos import NavePlayer
+from Objetos import NavePlayer, Alien1
 
 pygame.display.set_caption('Nave Game')
 
 nave_player = NavePlayer()
 todas_as_sprites.add(nave_player)
+alien = Alien1(100, 100)
+todas_as_sprites.add(alien)
 pygame.mixer.music.play(-1)
 
 
