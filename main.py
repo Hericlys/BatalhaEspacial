@@ -5,7 +5,7 @@ pygame.display.set_caption('Nave Game')
 
 nave_player = NavePlayer()
 todas_as_sprites.add(nave_player)
-alien = Alien1(100, 100)
+alien = Alien1()
 todas_as_sprites.add(alien)
 pygame.mixer.music.play(-1)
 

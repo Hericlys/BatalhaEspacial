@@ -1,6 +1,6 @@
 import pygame
 import os
-from random import randrange
+from random import randrange, choice
 from Configurações import config, sprite_sheet_nave, sprite_sheet_explosao, sprite_sheet_disparos,sprite_sheet_alien,\
     SONS_DIR
 
@@ -136,11 +136,12 @@ class Especial(pygame.sprite.Sprite):
 
 
 class Alien1(pygame.sprite.Sprite):
-    def __init__(self, pos_x, pos_y):
+    def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.velocidade = 4 #velocidades precisao ser acrecentados de 2 em 2
-        self.pos_x = pos_x
-        self.pos_y = pos_y
+        self.velocidades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        self.velocidade = choice(self.velocidades)
+        self.pos_x = randrange(config.limite_esquedo_tela, config.limite_direito_tela)
+        self.pos_y = randrange(config.limite_superior_tela, config.metade_altura_tela)
         self.novapos_x = randrange(config.limite_esquedo_tela, config.limite_direito_tela)
         self.novapos_y = randrange(config.limite_superior_tela, config.metade_altura_tela)
         self.index_lista = 0
@@ -166,6 +167,8 @@ class Alien1(pygame.sprite.Sprite):
 
     def movimentação_x(self):
         self.rect.center = (self.pos_x, self.pos_y)
+        if self.pos_x % self.velocidade != 0:
+            self.pos_x += 1
         if self.pos_x != self.novapos_x and self.novapos_x % self.velocidade == 0:
             if self.pos_x > self.novapos_x:
                 self.pos_x -= self.velocidade
@@ -176,6 +179,8 @@ class Alien1(pygame.sprite.Sprite):
 
     def movimentação_y(self):
         self.rect.center = (self.pos_x, self.pos_y)
+        if self.pos_y % self.velocidade != 0:
+            self.pos_y += 1
         if self.pos_y != self.novapos_y and self.novapos_y % self.velocidade == 0:
             if self.pos_y > self.novapos_y:
                 self.pos_y -= self.velocidade
