@@ -6,7 +6,7 @@ from random import randint, randrange, choice
 
 
 class AlienVerde(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, todas_as_balas=[]):
         pygame.sprite.Sprite.__init__(self)
         self.velocidades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         self.velocidade = choice(self.velocidades)
@@ -24,13 +24,13 @@ class AlienVerde(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (self.pos_x, self.pos_y)
         self.som_disparo = pygame.mixer.Sound(os.path.join(SONS_DIR, 'tiro-inimigo-verde.wav'))
-        self.balas = []
+        self.balas  = todas_as_balas
 
     def update(self):
         self.animação()
         self.movimentação_x()
         self.movimentação_y()
-        self.atirar()
+        self.disparo()
 
     def animação(self):
         if self.index_lista >= 1:
@@ -62,12 +62,15 @@ class AlienVerde(pygame.sprite.Sprite):
         if self.pos_y == self.novapos_y or self.novapos_y % self.velocidade != 0:
             self.novapos_y = randrange(config.limite_superior_tela, config.metade_altura_tela)
 
-    def atirar(self):
+    def disparo(self):
         disparo = randint(0, 250)
         if disparo == 1:
             bala = ArmaAlenVerde(self.pos_x, self.pos_y)
             self.balas.append(bala)
             self.som_disparo.play()
+        if self.balas:
+            if self.balas[0].pos_y > config.limite_inferior_tela:
+                del(self.balas[0])
 
 
 class ArmaAlenVerde(pygame.sprite.Sprite):
