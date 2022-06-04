@@ -36,7 +36,6 @@ class Configurações:
                 if event.key == K_SPACE:
                     nave_player.disparar()
                     todas_as_sprites.add(nave_player.minhasBalas)
-
                 if event.key == K_1:
                     nave_player.index_arma = 0
 

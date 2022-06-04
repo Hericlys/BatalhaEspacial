@@ -1,8 +1,4 @@
-import pygame
-import os
-from random import randrange, choice
-from Configurações import config, sprite_sheet_nave, sprite_sheet_explosao, sprite_sheet_disparos,sprite_sheet_alien,\
-    SONS_DIR
+from Configurações import *
 
 
 class NavePlayer(pygame.sprite.Sprite):
@@ -38,6 +34,7 @@ class NavePlayer(pygame.sprite.Sprite):
         self.animaçao()
         self.movimentação()
         self.son_explosao.set_volume(config.volume_efeitos)
+        self.excluindoBala()
 
     def movimentação(self, direct_x=0, direct_y=0):
         if self.vida:
@@ -57,6 +54,12 @@ class NavePlayer(pygame.sprite.Sprite):
             Arma = self.minhasArmas[self.index_arma]
             minha_bala = Arma(self.pos_x, self.pos_y)
             self.minhasBalas.append(minha_bala)
+
+    def excluindoBala(self):
+        if self.minhasBalas:
+            if self.minhasBalas[0].pos_y < config.limite_superior_tela:
+                del(self.minhasBalas[0])
+
 
     def morte(self):
         self.vida = False
@@ -133,58 +136,3 @@ class Especial(pygame.sprite.Sprite):
         self.image = self.sprite_animacao[int(self.index_lista)]
         self.pos_y -= self.velocidade
         self.rect.center = (self.pos_x, self.pos_y)
-
-
-class Alien1(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.velocidades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        self.velocidade = choice(self.velocidades)
-        self.pos_x = randrange(config.limite_esquedo_tela, config.limite_direito_tela)
-        self.pos_y = randrange(config.limite_superior_tela, config.metade_altura_tela)
-        self.novapos_x = randrange(config.limite_esquedo_tela, config.limite_direito_tela)
-        self.novapos_y = randrange(config.limite_superior_tela, config.metade_altura_tela)
-        self.index_lista = 0
-        self.imagens_alien = []
-        for i in range(2):
-            image = sprite_sheet_alien.subsurface((i * 32, 0), (32, 32))
-            image = pygame.transform.scale(image, (32 * 1.5, 32 * 1.5))
-            self.imagens_alien.append(image)
-        self.image = self.imagens_alien[self.index_lista]
-        self.rect = self.image.get_rect()
-        self.rect.center = (self.pos_x, self.pos_y)
-
-    def update(self):
-        self.animação()
-        self.movimentação_x()
-        self.movimentação_y()
-
-    def animação(self):
-        if self.index_lista >= 1:
-            self.index_lista = 0
-        self.index_lista += 0.05
-        self.image = self.imagens_alien[int(self.index_lista)]
-
-    def movimentação_x(self):
-        self.rect.center = (self.pos_x, self.pos_y)
-        if self.pos_x % self.velocidade != 0:
-            self.pos_x += 1
-        if self.pos_x != self.novapos_x and self.novapos_x % self.velocidade == 0:
-            if self.pos_x > self.novapos_x:
-                self.pos_x -= self.velocidade
-            else:
-                self.pos_x += self.velocidade
-        if self.pos_x == self.novapos_x or self.novapos_x % self.velocidade != 0:
-            self.novapos_x = randrange(config.limite_esquedo_tela, config.limite_direito_tela)
-
-    def movimentação_y(self):
-        self.rect.center = (self.pos_x, self.pos_y)
-        if self.pos_y % self.velocidade != 0:
-            self.pos_y += 1
-        if self.pos_y != self.novapos_y and self.novapos_y % self.velocidade == 0:
-            if self.pos_y > self.novapos_y:
-                self.pos_y -= self.velocidade
-            else:
-                self.pos_y += self.velocidade
-        if self.pos_y == self.novapos_y or self.novapos_y % self.velocidade != 0:
-            self.novapos_y = randrange(config.limite_superior_tela, config.metade_altura_tela)
