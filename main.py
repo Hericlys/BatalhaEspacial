@@ -1,7 +1,7 @@
 from random import choice
 from Configurações import *
 from player import NavePlayer
-from inimigos import AlienVerde, AlienVermelho
+from inimigos import AlienVerde, AlienVermelho, AlienMarron
 pygame.display.set_caption('Nave Game')
 nave_player = NavePlayer()
 todas_as_sprites.add(nave_player)
@@ -20,7 +20,7 @@ if __name__ == "__main__":
         todas_as_sprites.add(todos_os_inimigos)
 
         if len(todos_os_inimigos) < 10:
-            tipo_inimigo = [AlienVerde, AlienVermelho]
+            tipo_inimigo = [AlienVerde, AlienVermelho, AlienMarron]
             tipo_inimigo = choice(tipo_inimigo)
             inimigo = tipo_inimigo(todas_as_balas_dos_inimigos)
             todos_os_inimigos.append(inimigo)
