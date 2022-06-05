@@ -31,4 +31,3 @@ if __name__ == "__main__":
         todas_as_sprites.update()
         pygame.display.flip()
         pygame.mixer.music.set_volume(config.volume_musica)
-        print(todas_as_balas_dos_inimigos)
