@@ -1,3 +1,3 @@
-1 - adicionar colisão
+1 - ajustar colisoes
 2 - adicionar contagem de pontos
 3 - criar animação de nascimennto das naves inimigas
