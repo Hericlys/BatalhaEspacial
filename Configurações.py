@@ -21,7 +21,7 @@ class Configurações:
         pygame.display.set_caption(nome_do_jogo)
         self.relogio = pygame.time.Clock()
         self.volume_musica = 0.1
-        self.volume_efeitos = self.volume_musica + 0.2
+        self.volume_efeitos = 0.1
         self.mudo = False
 
     def reiniciar(self):
@@ -52,7 +52,7 @@ class Configurações:
                         config.mudo = True
                     else:
                         config.volume_musica = 0.1
-                        config.volume_efeitos = config.volume_musica + 0.2
+                        config.volume_efeitos = 0.1
                         config.mudo = False
 
                 if event.key == K_UP:

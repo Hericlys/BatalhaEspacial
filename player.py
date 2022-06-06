@@ -60,7 +60,6 @@ class NavePlayer(pygame.sprite.Sprite):
             if self.minhasBalas[0].pos_y < config.limite_superior_tela:
                 del(self.minhasBalas[0])
 
-
     def morte(self):
         self.vida = False
         if self.index_lista_explosao < 5:

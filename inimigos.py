@@ -1,6 +1,5 @@
 import os.path
 import pygame.mixer
-
 from Configurações import *
 from random import randint, randrange, choice
 
@@ -24,13 +23,15 @@ class AlienVerde(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (self.pos_x, self.pos_y)
         self.som_disparo = pygame.mixer.Sound(os.path.join(SONS_DIR, 'tiro-inimigo-verde.wav'))
-        self.balas  = todas_as_balas
+        self.som_disparo.set_volume(config.volume_efeitos)
+        self.balas = todas_as_balas
 
     def update(self):
         self.animação()
         self.movimentação_x()
         self.movimentação_y()
         self.disparo()
+        self.som_disparo.set_volume(config.volume_efeitos)
 
     def animação(self):
         if self.index_lista >= 1:
@@ -118,6 +119,7 @@ class AlienVermelho(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (self.pos_x, self.pos_y)
         self.som_disparo = pygame.mixer.Sound(os.path.join(SONS_DIR, 'tiro-inimigo-vermelho.wav'))
+        self.som_disparo.set_volume(config.volume_efeitos)
         self.balas = todas_as_balas
 
     def update(self):
@@ -125,6 +127,7 @@ class AlienVermelho(pygame.sprite.Sprite):
         self.movimentação_x()
         self.movimentação_y()
         self.disparo()
+        self.som_disparo.set_volume(config.volume_efeitos)
 
     def animação(self):
         if self.index_lista >= 1:
@@ -208,6 +211,7 @@ class AlienMarron(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (self.pos_x, self.pos_y)
         self.som_disparo = pygame.mixer.Sound(os.path.join(SONS_DIR, 'tiro-inimigo-de-fogo.wav'))
+        self.som_disparo.set_volume(config.volume_efeitos)
         self.balas = todas_as_balas
 
     def update(self):
@@ -215,6 +219,7 @@ class AlienMarron(pygame.sprite.Sprite):
         self.movimentação_x()
         self.movimentação_y()
         self.disparo()
+        self.som_disparo.set_volume(config.volume_efeitos)
 
     def animação(self):
         if self.index_lista >= 1:
