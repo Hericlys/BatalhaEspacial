@@ -99,6 +99,7 @@ sprite_sheet_disparos = pygame.image.load(os.path.join(IMAGENS_DIR, "Disparos.pn
 sprite_sheet_alien = pygame.image.load(os.path.join(IMAGENS_DIR, "alien_inimigos _basicos.png"))
 
 todas_as_sprites = pygame.sprite.Group()
+Grupo_inimigos = pygame.sprite.Group()
 
 
 

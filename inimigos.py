@@ -21,6 +21,7 @@ class AlienVerde(pygame.sprite.Sprite):
             self.imagens_alien.append(image)
         self.image = self.imagens_alien[self.index_lista]
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.center = (self.pos_x, self.pos_y)
         self.som_disparo = pygame.mixer.Sound(os.path.join(SONS_DIR, 'tiro-inimigo-verde.wav'))
         self.som_disparo.set_volume(config.volume_efeitos)

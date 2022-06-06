@@ -1,3 +1,5 @@
+import pygame.mask
+
 from Configurações import *
 
 
@@ -53,6 +55,7 @@ class NavePlayer(pygame.sprite.Sprite):
         if self.vida:
             Arma = self.minhasArmas[self.index_arma]
             minha_bala = Arma(self.pos_x, self.pos_y)
+            Grupo_inimigos.add(minha_bala)
             self.minhasBalas.append(minha_bala)
 
     def excluindoBala(self):
@@ -81,6 +84,7 @@ class Laser(pygame.sprite.Sprite):
         self.image = sprite_sheet_disparos.subsurface((0, 0), (32, 32))
         self.image = pygame.transform.scale(self.image, (32 * 2, 32 * 2))
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.center = (self.pos_x, self.pos_y)
 
     def update(self):
