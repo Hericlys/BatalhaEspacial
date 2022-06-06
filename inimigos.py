@@ -69,6 +69,7 @@ class AlienVerde(pygame.sprite.Sprite):
         if disparo == 1:
             bala = ArmaAlenVerde(self.pos_x, self.pos_y)
             self.balas.append(bala)
+            Grupo_inimigos.add(bala)
             self.som_disparo.play()
         if self.balas:
             if self.balas[0].pos_y > config.limite_inferior_tela:

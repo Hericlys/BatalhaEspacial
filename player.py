@@ -25,6 +25,7 @@ class NavePlayer(pygame.sprite.Sprite):
         self.pos_x = config.largura_tela / 2
         self.pos_y = config.altura_tela - 32
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.center = (self.pos_x, self.pos_y)
         self.minhasArmas = [Laser, LaserDuplo, Especial]
         self.index_arma = 0

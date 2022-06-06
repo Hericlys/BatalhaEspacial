@@ -33,8 +33,12 @@ if __name__ == "__main__":
             colisoes = pygame.sprite.spritecollide(inimigo, Grupo_inimigos, False, pygame.sprite.collide_mask)
         if colisoes:
             for inimigo in colisoes:
-                print("bateu")
-                del(inimigo)
+                print("bateu no inimigo")
+
+        colisoes_nave = pygame.sprite.spritecollide(nave_player, Grupo_inimigos, False, pygame.sprite.collide_mask)
+
+        if colisoes_nave:
+            nave_player.pontos_de_vida -= 100
 
         config.tela.fill((0, 0, 0))
         todas_as_sprites.add(todas_as_balas_dos_inimigos)
