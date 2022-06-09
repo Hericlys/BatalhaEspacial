@@ -1,3 +1,4 @@
-1 - ajustar colisoes
-2 - adicionar contagem de pontos
-3 - criar animação de nascimennto das naves inimigas
+1 - criar animação de nascimennto das naves inimigas e de morte
+2 - criar colisão das balas inimigas com a nave do player
+3 - criar sys para mostarr a pontuação em tela de jogo
+4 - inclementar game over e restart

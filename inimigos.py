@@ -26,6 +26,8 @@ class AlienVerde(pygame.sprite.Sprite):
         self.som_disparo = pygame.mixer.Sound(os.path.join(SONS_DIR, 'tiro-inimigo-verde.wav'))
         self.som_disparo.set_volume(config.volume_efeitos)
         self.balas = todas_as_balas
+        self.pontos_vida = 100
+        self.pontos = 10
 
     def update(self):
         self.animação()
@@ -33,6 +35,7 @@ class AlienVerde(pygame.sprite.Sprite):
         self.movimentação_y()
         self.disparo()
         self.som_disparo.set_volume(config.volume_efeitos)
+        self.Morte()
 
     def animação(self):
         if self.index_lista >= 1:
@@ -69,11 +72,16 @@ class AlienVerde(pygame.sprite.Sprite):
         if disparo == 1:
             bala = ArmaAlenVerde(self.pos_x, self.pos_y)
             self.balas.append(bala)
-            Grupo_inimigos.add(bala)
+            Grupo_BalasInimigas.add(bala)
             self.som_disparo.play()
         if self.balas:
             if self.balas[0].pos_y > config.limite_inferior_tela:
+                todas_as_sprites.remove(self.balas[0])
                 del(self.balas[0])
+
+    def Morte(self):
+        if self.pontos_vida <= 0:
+            print("Morreu")
 
 
 class ArmaAlenVerde(pygame.sprite.Sprite):
@@ -119,10 +127,13 @@ class AlienVermelho(pygame.sprite.Sprite):
             self.imagens_alien.append(image)
         self.image = self.imagens_alien[self.index_lista]
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.center = (self.pos_x, self.pos_y)
         self.som_disparo = pygame.mixer.Sound(os.path.join(SONS_DIR, 'tiro-inimigo-vermelho.wav'))
         self.som_disparo.set_volume(config.volume_efeitos)
         self.balas = todas_as_balas
+        self.pontos_vida = 100
+        self.pontos = 10
 
     def update(self):
         self.animação()
@@ -166,9 +177,11 @@ class AlienVermelho(pygame.sprite.Sprite):
         if disparo == 1:
             bala = ArmaAlenVermelho(self.pos_x, self.pos_y)
             self.balas.append(bala)
+            Grupo_BalasInimigas.add(bala)
             self.som_disparo.play()
         if self.balas:
             if self.balas[0].pos_y > config.limite_inferior_tela:
+                todas_as_sprites.remove(self.balas[0])
                 del(self.balas[0])
 
 
@@ -211,10 +224,13 @@ class AlienMarron(pygame.sprite.Sprite):
             self.imagens_alien.append(image)
         self.image = self.imagens_alien[self.index_lista]
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.center = (self.pos_x, self.pos_y)
         self.som_disparo = pygame.mixer.Sound(os.path.join(SONS_DIR, 'tiro-inimigo-de-fogo.wav'))
         self.som_disparo.set_volume(config.volume_efeitos)
         self.balas = todas_as_balas
+        self.pontos_vida = 100
+        self.pontos = 10
 
     def update(self):
         self.animação()
@@ -258,9 +274,11 @@ class AlienMarron(pygame.sprite.Sprite):
         if disparo == 1:
             bala = ArmaAlenMarron(self.pos_x, self.pos_y)
             self.balas.append(bala)
+            Grupo_BalasInimigas.add(bala)
             self.som_disparo.play()
         if self.balas:
             if self.balas[0].pos_y > config.limite_inferior_tela:
+                todas_as_sprites.remove(self.balas[0])
                 del(self.balas[0])
 
 

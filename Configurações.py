@@ -23,6 +23,7 @@ class Configurações:
         self.volume_musica = 0.1
         self.volume_efeitos = 0.1
         self.mudo = False
+        self.pontos = 0
 
     def reiniciar(self):
         print("funciona")
@@ -92,14 +93,15 @@ SONS_DIR = os.path.join(BASE_DIR, "SONS")
 musica_fundo = pygame.mixer.music.load(os.path.join(SONS_DIR, "BoxCat Games - Battle (Special).mp3"))
 
 
-
 sprite_sheet_nave = pygame.image.load(os.path.join(IMAGENS_DIR, "Nave_player.png"))
 sprite_sheet_explosao = pygame.image.load(os.path.join(IMAGENS_DIR, "Explosão.png"))
 sprite_sheet_disparos = pygame.image.load(os.path.join(IMAGENS_DIR, "Disparos.png"))
 sprite_sheet_alien = pygame.image.load(os.path.join(IMAGENS_DIR, "alien_inimigos _basicos.png"))
 
 todas_as_sprites = pygame.sprite.Group()
-Grupo_inimigos = pygame.sprite.Group()
+Grupo_BalasNavePlayer = pygame.sprite.Group()
+Grupo_Inimigos = pygame.sprite.Group()
+Grupo_BalasInimigas = pygame.sprite.Group
 
 
 

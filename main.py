@@ -1,7 +1,4 @@
 from random import choice
-
-import pygame.sprite
-
 from Configurações import *
 from player import NavePlayer
 from inimigos import AlienVerde, AlienVermelho, AlienMarron
@@ -9,7 +6,7 @@ pygame.display.set_caption('Nave Game')
 nave_player = NavePlayer()
 todas_as_sprites.add(nave_player)
 
-todos_os_inimigos = []
+Lista_inimigos = []
 todas_as_balas_dos_inimigos = []
 pygame.mixer.music.play(-1)
 
@@ -20,26 +17,25 @@ if __name__ == "__main__":
         config.controle(nave_player)
         if nave_player.pontos_de_vida <= 0 or not nave_player.vida:
             nave_player.morte()
-        todas_as_sprites.add(todos_os_inimigos)
+        todas_as_sprites.add(Lista_inimigos)
 
-        if len(todos_os_inimigos) < 1:
+        if len(Lista_inimigos) < 1:
             tipo_inimigo = [AlienVerde, AlienVermelho, AlienMarron]
             tipo_inimigo = choice(tipo_inimigo)
-            tipo_inimigo = AlienVerde
             inimigo = tipo_inimigo(todas_as_balas_dos_inimigos)
-            todos_os_inimigos.append(inimigo)
-        colisoes = []
-        for inimigo in todos_os_inimigos:
-            colisoes = pygame.sprite.spritecollide(inimigo, Grupo_inimigos, False, pygame.sprite.collide_mask)
-        if colisoes:
-            for inimigo in colisoes:
-                print("bateu no inimigo")
+            Lista_inimigos.append(inimigo)
+        colisoes_ComInimigos = []
+        for inimigo in Lista_inimigos:
+            colisoes_ComInimigos = pygame.sprite.spritecollide(inimigo, Grupo_BalasNavePlayer, True, pygame.sprite.collide_mask)
+            if colisoes_ComInimigos:
+                inimigo.pontos_vida -= colisoes_ComInimigos[0].dano
+                nave_player.minhasBalas = list(filter((colisoes_ComInimigos[0]).__ne__, nave_player.minhasBalas))
+                if inimigo.pontos_vida <= 0:
+                    config.pontos += inimigo.pontos
+                    Lista_inimigos = list(filter((inimigo).__ne__, Lista_inimigos))
+                    todas_as_sprites.remove(inimigo)
 
-        colisoes_nave = pygame.sprite.spritecollide(nave_player, Grupo_inimigos, False, pygame.sprite.collide_mask)
-
-        if colisoes_nave:
-            nave_player.pontos_de_vida -= 100
-
+        print(f"{todas_as_sprites}")
         config.tela.fill((0, 0, 0))
         todas_as_sprites.add(todas_as_balas_dos_inimigos)
         todas_as_sprites.draw(config.tela)

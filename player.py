@@ -56,12 +56,13 @@ class NavePlayer(pygame.sprite.Sprite):
         if self.vida:
             Arma = self.minhasArmas[self.index_arma]
             minha_bala = Arma(self.pos_x, self.pos_y)
-            Grupo_inimigos.add(minha_bala)
+            Grupo_BalasNavePlayer.add(minha_bala)
             self.minhasBalas.append(minha_bala)
 
     def excluindoBala(self):
         if self.minhasBalas:
             if self.minhasBalas[0].pos_y < config.limite_superior_tela:
+                todas_as_sprites.remove(self.minhasBalas[0])
                 del(self.minhasBalas[0])
 
     def morte(self):
