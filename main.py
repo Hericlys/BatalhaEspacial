@@ -24,18 +24,17 @@ if __name__ == "__main__":
             tipo_inimigo = choice(tipo_inimigo)
             inimigo = tipo_inimigo(todas_as_balas_dos_inimigos)
             Lista_inimigos.append(inimigo)
-        colisoes_ComInimigos = []
+
         for inimigo in Lista_inimigos:
             colisoes_ComInimigos = pygame.sprite.spritecollide(inimigo, Grupo_BalasNavePlayer, True, pygame.sprite.collide_mask)
             if colisoes_ComInimigos:
                 inimigo.pontos_vida -= colisoes_ComInimigos[0].dano
-                nave_player.minhasBalas = list(filter((colisoes_ComInimigos[0]).__ne__, nave_player.minhasBalas))
+                nave_player.minhasBalas = [bala for bala in nave_player.minhasBalas if bala != colisoes_ComInimigos[0]]
                 if inimigo.pontos_vida <= 0:
                     config.pontos += inimigo.pontos
-                    Lista_inimigos = list(filter((inimigo).__ne__, Lista_inimigos))
+                    Lista_inimigos = [ini for ini in Lista_inimigos if ini != inimigo]
                     todas_as_sprites.remove(inimigo)
 
-        print(f"{todas_as_sprites}")
         config.tela.fill((0, 0, 0))
         todas_as_sprites.add(todas_as_balas_dos_inimigos)
         todas_as_sprites.draw(config.tela)
